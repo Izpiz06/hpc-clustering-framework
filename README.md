@@ -358,8 +358,6 @@ We appreciate all contributors who help improve this project.
 
 ## Community & Support
 
-- GitHub Discussions
-- GitHub Issues
-- GSSoC Community Channels
+- GitHub Discussions: https://discord.gg/Nc4ttTzqG
 
 Contributors are encouraged to ask questions, suggest improvements, and participate in discussions related to GPU computing, machine learning systems, and high-performance computing.
