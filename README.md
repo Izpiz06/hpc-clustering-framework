@@ -3,39 +3,62 @@
 [![GSSoC 2026](https://img.shields.io/badge/GSSoC-2026-orange?style=for-the-badge)](https://gssoc.girlscript.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
+[![Contributors](https://img.shields.io/github/contributors/Izpiz06/hpc-clustering-framework?style=for-the-badge)](https://github.com/Izpiz06/hpc-clustering-framework/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/Izpiz06/hpc-clustering-framework?style=for-the-badge)](https://github.com/Izpiz06/hpc-clustering-framework/issues)
 
-An open-source high-performance machine learning optimization framework designed to bridge the gap between standard Python scripting and GPU-accelerated systems engineering. This project implements and benchmarks clustering algorithms, starting with K-Means, across CPU and GPU backends.
+An open-source high-performance machine learning optimization framework focused on accelerating clustering algorithms using GPU computing and exposing contributors to practical systems-level performance engineering concepts.
 
 ---
 
 ## Overview
 
-Traditional CPU-based machine learning implementations struggle when processing large-scale, high-dimensional datasets. Many developers enable GPU execution without understanding the underlying optimization principles, memory transfers, and parallel computation mechanisms involved.
+Traditional CPU-based machine learning pipelines struggle when processing large-scale, high-dimensional datasets. While many libraries provide GPU support, the underlying mechanics of acceleration, memory optimization, profiling, and parallel computation often remain hidden from developers.
 
-This project aims to make GPU acceleration and performance engineering more accessible by providing a modular framework where contributors can compare standard NumPy implementations against optimized CuPy and Numba backends.
+This project bridges that gap by providing a modular framework where contributors can directly compare standard CPU implementations against GPU-accelerated backends using modern Python HPC tools.
 
-The framework serves as a practical introduction to:
+The framework serves as a hands-on introduction to:
 - GPU computing
 - Parallel processing
-- Performance optimization
-- Memory management
-- Profiling and benchmarking
-- High-Performance Computing (HPC)
+- High-performance computing (HPC)
+- Performance profiling
+- Memory optimization
+- ML systems engineering
 
 ---
 
-## Project Vision
+## What This Project Does
 
-The goal of this project is to provide an educational and contributor-friendly environment for aspiring machine learning systems engineers and open-source contributors.
+This framework benchmarks and accelerates clustering algorithms across CPU and GPU backends using:
+- NumPy
+- CuPy
+- Numba
 
-Rather than treating GPU acceleration as a black box, the framework exposes contributors to the internal mechanics of:
-- vectorized computation
+Contributors can experiment with:
 - backend optimization
-- profiling bottlenecks
-- scalability engineering
-- efficient memory usage
+- vectorized computation
+- runtime benchmarking
+- memory profiling
+- scalability testing
 
-The project also provides tiered contribution pathways suitable for contributors ranging from beginners to advanced systems programmers.
+The project is designed to be educational, contributor-friendly, and scalable from beginner-level tasks to advanced GPU optimization challenges.
+
+---
+
+## Why This Project?
+
+Most beginner ML repositories focus primarily on:
+- model training
+- datasets
+- accuracy metrics
+
+This project instead focuses on:
+- GPU acceleration
+- scalability
+- performance engineering
+- backend optimization
+- systems-level ML concepts
+
+The goal is to help contributors transition from standard scripting into practical machine learning systems and high-performance computing.
 
 ---
 
@@ -44,13 +67,31 @@ The project also provides tiered contribution pathways suitable for contributors
 - CPU-based K-Means implementation using NumPy
 - GPU-accelerated implementation using CuPy
 - Optional Numba JIT kernel integration
-- Benchmarking tools for runtime comparison
+- Runtime benchmarking tools
 - Memory profiling utilities
 - Synthetic dataset generation
 - Clustering visualization tools
 - Modular backend architecture
-- Contributor-friendly repository structure
 - Streamlit dashboard for performance analysis
+- Beginner-friendly contribution structure
+
+---
+
+## Architecture Overview
+
+```text
+Dataset Input
+      ↓
+Backend Selector
+ ┌─────────────┐
+ │ CPU Backend │
+ │ GPU Backend │
+ └─────────────┘
+      ↓
+Benchmark Engine
+      ↓
+Visualization Dashboard
+```
 
 ---
 
@@ -94,6 +135,18 @@ The project also provides tiered contribution pathways suitable for contributors
 
 ---
 
+## Current Status
+
+| Component | Status |
+|---|---|
+| CPU K-Means Baseline | Completed |
+| GPU Backend | In Progress |
+| Benchmark Engine | Planned |
+| Dashboard | Planned |
+| Multi-GPU Support | Future |
+
+---
+
 ## Getting Started
 
 ### Prerequisites
@@ -113,8 +166,8 @@ The project also provides tiered contribution pathways suitable for contributors
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/repo-name.git
-cd repo-name
+git clone https://github.com/Izpiz06/hpc-clustering-framework.git
+cd hpc-clustering-framework
 ```
 
 ### Create a Virtual Environment
@@ -139,7 +192,7 @@ pip install -r requirements.txt
 
 ---
 
-## Running the Project
+## Quick Start
 
 ### Run CPU Benchmark
 
@@ -179,7 +232,42 @@ Example benchmark metrics:
 
 ---
 
-## Contribution Guidelines
+## Sample Benchmark Results
+
+| Dataset Size | CPU Runtime | GPU Runtime | Speedup |
+|---|---|---|---|
+| 10,000 Points | 2.1s | 0.5s | 4.2x |
+| 100,000 Points | 24.8s | 2.3s | 10.7x |
+
+> Note: Benchmark values above are sample results and will vary depending on hardware configuration.
+
+---
+
+## Learning Objectives
+
+Contributors will gain practical experience in:
+- GPU acceleration
+- ML systems engineering
+- HPC fundamentals
+- Vectorized computation
+- Performance engineering
+- Parallel processing
+- Profiling and benchmarking
+
+---
+
+## Open Source Goals
+
+This repository aims to:
+- provide beginner-friendly HPC exposure
+- encourage systems-level ML learning
+- introduce GPU acceleration concepts
+- create a contributor-friendly optimization framework
+- help contributors explore practical performance engineering
+
+---
+
+## Contributing
 
 We welcome contributors of all experience levels.
 
@@ -221,29 +309,28 @@ are specifically curated for new contributors.
 
 ---
 
-## Learning Objectives
+## Roadmap
 
-Contributors will gain practical experience in:
-- GPU acceleration
-- ML systems engineering
-- HPC fundamentals
-- Vectorized computation
-- Performance engineering
-- Parallel processing
-- Profiling and benchmarking
+- [x] CPU K-Means baseline
+- [ ] GPU acceleration with CuPy
+- [ ] Benchmark dashboard
+- [ ] Numba kernel optimization
+- [ ] Mini-Batch K-Means
+- [ ] Multi-GPU experimentation
+- [ ] Distributed clustering
+- [ ] PyTorch backend integration
 
 ---
 
-## Future Roadmap
+## Future Scope
 
 Planned future additions include:
-- Mini-Batch K-Means
-- Hierarchical clustering
-- Distributed clustering support
-- Multi-GPU execution
+- Distributed clustering
+- Multi-GPU acceleration
+- CUDA kernel optimization
 - PyTorch backend integration
-- Advanced CUDA optimization
-- Real-time benchmarking dashboard
+- Real-time benchmark visualization
+- Additional clustering algorithms
 
 ---
 
@@ -255,14 +342,24 @@ This project is licensed under the MIT License.
 
 ## Maintainers
 
-### Project Admin
-Mohammad Izaan
+### Mohammad Izaan
 
-### Contributors
+---
+
+## Contributors
+
+We appreciate all contributors who help improve this project.
+
+<a href="https://github.com/Izpiz06/hpc-clustering-framework/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Izpiz06/hpc-clustering-framework" />
+</a>
+
 ---
 
 ## Community & Support
 
-- Discord Community: https://discord.gg/Nc4ttTzqG
+- GitHub Discussions
+- GitHub Issues
+- GSSoC Community Channels
 
 Contributors are encouraged to ask questions, suggest improvements, and participate in discussions related to GPU computing, machine learning systems, and high-performance computing.
