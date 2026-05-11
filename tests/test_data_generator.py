@@ -169,7 +169,7 @@ class TestSaveDataset:
 
             # Save as CSV
             output_path = os.path.join(tmpdir, "test_data.csv")
-            saved_path = save_dataset(data, 42, output_path, output_format="csv")
+            saved_path = save_dataset(data, output_path, output_format="csv")
 
             # Verify file exists
             assert os.path.exists(saved_path), f"File not created: {saved_path}"
@@ -194,7 +194,7 @@ class TestSaveDataset:
 
             # Save as NPY
             output_path = os.path.join(tmpdir, "test_data.npy")
-            saved_path = save_dataset(data, 42, output_path, output_format="npy")
+            saved_path = save_dataset(data, output_path, output_format="npy")
 
             # Verify file exists
             assert os.path.exists(saved_path), f"File not created: {saved_path}"
@@ -217,7 +217,7 @@ class TestSaveDataset:
             output_path = os.path.join(tmpdir, "nested", "dirs", "test_data.csv")
 
             data = generate_dataset(samples=50, features=5, seed=42)
-            saved_path = save_dataset(data, 42, output_path, output_format="csv")
+            saved_path = save_dataset(data, output_path, output_format="csv")
 
             # Verify all directories were created
             assert os.path.exists(saved_path), f"File not saved: {saved_path}"
@@ -227,7 +227,7 @@ class TestSaveDataset:
         """Test that invalid format raises ValueError."""
         data = generate_dataset(samples=10, features=5, seed=42)
         with pytest.raises(ValueError, match="output_format must be 'csv' or 'npy'"):
-            save_dataset(data, 42, "test.txt", output_format="txt")
+            save_dataset(data, "test.txt", output_format="txt")
 
     def test_csv_and_npy_equivalence(self):
         """
@@ -240,8 +240,8 @@ class TestSaveDataset:
             data = generate_dataset(samples=100, features=10, seed=42)
 
             # Save both formats
-            csv_path = save_dataset(data, 42, os.path.join(tmpdir, "test.csv"), output_format="csv")
-            npy_path = save_dataset(data, 42, os.path.join(tmpdir, "test.npy"), output_format="npy")
+            csv_path = save_dataset(data, os.path.join(tmpdir, "test.csv"), output_format="csv")
+            npy_path = save_dataset(data, os.path.join(tmpdir, "test.npy"), output_format="npy")
 
             # Load both back
             csv_loaded = np.loadtxt(csv_path, delimiter=",")
@@ -408,7 +408,7 @@ class TestIntegration:
 
             # Save as CSV
             output_path = os.path.join(tmpdir, "data.csv")
-            save_dataset(data, 999, output_path, output_format="csv")
+            save_dataset(data, output_path, output_format="csv")
 
             # Load and verify
             loaded = np.loadtxt(output_path, delimiter=",")
@@ -425,7 +425,7 @@ class TestIntegration:
 
             # Save as NPY
             output_path = os.path.join(tmpdir, "data.npy")
-            save_dataset(data, 999, output_path, output_format="npy")
+            save_dataset(data, output_path, output_format="npy")
 
             # Load and verify
             loaded = np.load(output_path)
@@ -442,8 +442,8 @@ class TestIntegration:
             # Save both ways
             csv_path = os.path.join(tmpdir, "data.csv")
             npy_path = os.path.join(tmpdir, "data.npy")
-            save_dataset(data, 777, csv_path, output_format="csv")
-            save_dataset(data, 777, npy_path, output_format="npy")
+            save_dataset(data, csv_path, output_format="csv")
+            save_dataset(data, npy_path, output_format="npy")
 
             # Load both
             csv_loaded = np.loadtxt(csv_path, delimiter=",")
