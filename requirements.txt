@@ -1,0 +1,14 @@
+# CPU & Baseline Dependencies
+numpy>=1.22.0
+scikit-learn>=1.0.0
+pytest>=7.0.0
+
+# Visualization & Dashboard
+matplotlib>=3.5.0
+plotly>=5.0.0
+streamlit>=1.20.0
+
+# GPU Dependencies (Optional - For GPU Backend Contributors)
+# Contributors working on CuPy/Numba should install these manually based on their CUDA version.
+# cupy-cuda11x  (or cupy-cuda12x)
+# numba>=0.56.0
