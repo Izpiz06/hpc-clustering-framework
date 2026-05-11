@@ -1,7 +1,10 @@
 # CPU & Baseline Dependencies
-numpy>=1.22.0
-scikit-learn>=1.0.0
-pytest>=7.0.0
+# NOTE: Versions pinned for reproducibility (ADR-001: Deterministic Data Generation)
+# See: lifecycle/project/sprints/SPRINT-001/ADR-001-deterministic-reproducible-data-generation.md
+# Latest versions with Python 3.14+ binary wheels (reproducibility via exact version pins)
+numpy==2.4.4
+scikit-learn==1.8.0
+pytest==8.3.4
 
 # Visualization & Dashboard
 matplotlib>=3.5.0

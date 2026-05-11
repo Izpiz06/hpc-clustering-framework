@@ -1,0 +1,42 @@
+{
+  "normal_seed123_500x32": {
+    "config": {
+      "distribution": "normal",
+      "features": 32,
+      "samples": 500,
+      "seed": 123
+    },
+    "numpy_version": "2.4.4",
+    "sha256": "efb84cd8dcbc470c1f4d7f9a6bd0490a7b5188c6e6b707ad52d2a3ecdabc52f0"
+  },
+  "normal_seed42_1000x16": {
+    "config": {
+      "distribution": "normal",
+      "features": 16,
+      "samples": 1000,
+      "seed": 42
+    },
+    "numpy_version": "2.4.4",
+    "sha256": "476becdb92af5bd882be1c2d4b3807d9e4c0aa86208ebcf6df7f35cc5c63b231"
+  },
+  "uniform_seed42_1000x16": {
+    "config": {
+      "distribution": "uniform",
+      "features": 16,
+      "samples": 1000,
+      "seed": 42
+    },
+    "numpy_version": "2.4.4",
+    "sha256": "57a119c3d33dff098579e58fad7afcba8990bc3e45d1fe436b0f46e015874434"
+  },
+  "uniform_seed999_500x32": {
+    "config": {
+      "distribution": "uniform",
+      "features": 32,
+      "samples": 500,
+      "seed": 999
+    },
+    "numpy_version": "2.4.4",
+    "sha256": "43816cae98e1a2f0a84e38d2f9a7c55ba66191b0606264e5eb88841bb8a74c5f"
+  }
+}
