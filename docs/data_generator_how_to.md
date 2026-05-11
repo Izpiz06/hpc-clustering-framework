@@ -8,12 +8,14 @@ A comprehensive guide to using the data generator utility for creating reproduci
 
 1. [Quick Start](#quick-start)
 2. [CLI Reference](#cli-reference)
-3. [Examples](#examples)
-4. [Reproducibility](#reproducibility)
-5. [Performance](#performance)
-6. [Troubleshooting](#troubleshooting)
-7. [Advanced Usage](#advanced-usage)
-8. [FAQ](#faq)
+3. [Generating Data](#generating-data)
+4. [Loading External Datasets](#loading-external-datasets)
+5. [Examples](#examples)
+6. [Reproducibility](#reproducibility)
+7. [Performance](#performance)
+8. [Troubleshooting](#troubleshooting)
+9. [Advanced Usage](#advanced-usage)
+10. [FAQ](#faq)
 
 ---
 
@@ -80,13 +82,17 @@ python src/utils/data_generator.py \
 
 | Argument | Type | Default | Required | Description |
 |----------|------|---------|----------|-------------|
-| `--samples` | int | — | **Yes** | Number of samples (rows) to generate. Must be > 0. |
-| `--features` | int | — | **Yes** | Number of features (columns) per sample. Must be > 0. |
-| `--format` | str | `csv` | No | Output format: `csv` (human-readable) or `npy` (binary, faster). |
+| `--load` | str | None | No* | Path to external CSV or NPY file to load (mutually exclusive with `--samples/--features`) |
+| `--transform` | str | `none` | No | Transform after load: `none` (unchanged), `normalize` (min-max to [0,1]), `standardize` (z-score). Default: none |
+| `--output-format` | str | `csv` | No | Output format: `csv` (human-readable) or `npy` (binary, faster). |
+| `--samples` | int | 1000 | No* | Number of samples (rows) to generate. Requires `--load` to be absent. Must be > 0. |
+| `--features` | int | 32 | No* | Number of features (columns) per sample. Requires `--load` to be absent. Must be > 0. |
 | `--distribution` | str | `normal` | No | Data distribution: `normal` (Gaussian) or `uniform` ([-1, 1]). |
 | `--seed` | int | `42` | No | Random seed for reproducibility. Use same seed → identical output. |
 | `--random-state` | int | None | No | Alias for `--seed` (numpy convention). Overrides `--seed` if provided. |
 | `--output-dir` | str | `data/` | No | Output directory. Created if missing. |
+
+*Note: Either `--load` OR (`--samples` AND `--features`) must be specified (they are mutually exclusive).
 
 ### Output File Naming
 
@@ -99,6 +105,123 @@ Generated files follow the pattern:
 Examples:
 - `20260511-154500_10000_32_normal_seed42.csv`
 - `20260511-154500_5000_64_uniform_seed12345.npy`
+
+---
+
+## Generating Data
+
+### Mode: Generate Synthetic Datasets
+
+Use `--samples` and `--features` to generate new synthetic data:
+
+```bash
+python src/utils/data_generator.py --samples NUM --features NUM [OPTIONS]
+```
+
+**Options:**
+- `--distribution {normal|uniform}` — Data distribution (default: normal)
+- `--seed SEED` — Random seed for reproducibility (default: 42)
+- `--output-format {csv|npy}` — Output format (default: csv)
+- `--output-dir DIR` — Output directory (default: data/)
+
+---
+
+## Loading External Datasets
+
+### Mode: Load and Transform External Data
+
+Use `--load` to load external CSV or NPY files:
+
+```bash
+python src/utils/data_generator.py --load <filepath> [OPTIONS]
+```
+
+**Key Features:**
+- **Auto-detection:** Recognizes `.csv` and `.npy` file extensions
+- **Validation:** Ensures data is 2D and numeric (raises error otherwise)
+- **Transforms:** Optional preprocessing (normalize, standardize)
+- **Format conversion:** Load CSV, save as NPY (or vice versa)
+
+**ADR-002 Security:**
+- NPY loading uses `allow_pickle=False` to prevent deserialization attacks
+- Mutual exclusivity enforced: `--load` cannot coexist with `--samples/--features`
+
+### Transform Options
+
+| Transform | Effect | Use Case |
+|-----------|--------|----------|
+| `none` | No transformation (default) | Preserve original data |
+| `normalize` | Min-max scaling to [0, 1] per feature | Bounded values; algorithms sensitive to scale |
+| `standardize` | Z-score standardization (mean≈0, std≈1) per feature | Algorithms assuming Gaussian input |
+
+### Loading Examples
+
+#### Example 1: Load CSV, Standardize, Save as NPY
+```bash
+python src/utils/data_generator.py \
+  --load my_data.csv \
+  --transform standardize \
+  --output-format npy
+```
+
+Output: Loads `my_data.csv`, applies z-score standardization per feature, saves as NPY (fast binary format).
+
+#### Example 2: Load NPY, Save as CSV
+```bash
+python src/utils/data_generator.py \
+  --load my_data.npy \
+  --output-format csv
+```
+
+Output: Loads `my_data.npy` (binary format), saves as human-readable CSV.
+
+#### Example 3: Load CSV, No Transform
+```bash
+python src/utils/data_generator.py \
+  --load my_data.csv
+```
+
+Output: Loads CSV as-is, saves in default CSV format.
+
+#### Example 4: Generate Synthetic Data (SPRINT-001 behavior)
+```bash
+python src/utils/data_generator.py --samples 1000 --features 32 --seed 42
+```
+
+Output: Generates synthetic Gaussian data, 1000 samples × 32 features, saved as CSV.
+
+### Error Handling
+
+**Unsupported file format:**
+```
+Error: Unsupported file extension '.txt'. Must be '.csv' or '.npy'.
+```
+Solution: Use `.csv` (text) or `.npy` (binary) format.
+
+**Invalid data shape (not 2D):**
+```
+Error: Input data must be 2-dimensional, got 1
+```
+Solution: Ensure input file contains 2D tabular data (rows × columns).
+
+**Non-numeric data:**
+```
+Error: Input data must be numeric, got dtype 'object'
+```
+Solution: Check that all values are numbers (integers or floats), not strings.
+
+**Mutual exclusivity violation:**
+```
+Error: --load and --samples/--features are mutually exclusive.
+```
+Solution: Use either `--load file.csv` OR `--samples 1000 --features 32`, not both.
+
+### Performance Notes
+
+- **CSV loading:** Suitable for small-medium datasets (<1GB)
+- **NPY loading:** Preferred for repeated loading (binary format, 5-10× faster than CSV)
+- **Transforms:** Applied in-memory, linear time complexity O(samples × features)
+- **No hard SLA:** Performance depends on file size and system I/O; see Performance section for benchmarks
 
 ---
 
