@@ -236,8 +236,8 @@ Example benchmark metrics:
 
 | Dataset Size | CPU Runtime | GPU Runtime | Speedup |
 |---|---|---|---|
-| 10,000 Points | 2.1s | 0.5s | 4.2x |
-| 100,000 Points | 24.8s | 2.3s | 10.7x |
+| 10,000 Points | 0.5s | TBD | TBD |
+| 100,000 Points | 23.8s | TBD | TBD |
 
 > Note: Benchmark values above are sample results and will vary depending on hardware configuration.
 
