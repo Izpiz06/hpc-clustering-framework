@@ -34,10 +34,15 @@ class KMeansCPU:
         """
         Compute k-means clustering.
 
-        Parameters:
+        Parameters
         -----------
         X : numpy.ndarray of shape (n_samples, n_features)
             Training instances to cluster.
+
+        Returns
+        -------
+        self : KMeansCPU
+            Fitted estimator.
         """
         if self.random_state is not None:
             np.random.seed(self.random_state)
@@ -77,6 +82,16 @@ class KMeansCPU:
     def predict(self, X):
         """
         Predict the closest cluster each sample in X belongs to.
+
+        Parameters
+        -----------
+        X : numpy.ndarray of shape (n_samples, n_features)
+            New data to predict cluster labels for.
+
+        Returns
+        -------
+        labels : numpy.ndarray of shape (n_samples,)
+            Cluster labels for each sample in X.
         """
         if self.centroids is None:
             raise ValueError("The model has not been fitted yet. Call 'fit' first.")
@@ -87,5 +102,15 @@ class KMeansCPU:
     def fit_predict(self, X):
         """
         Compute cluster centers and predict cluster index for each sample.
+
+        Parameters
+        -----------
+        X : numpy.ndarray of shape (n_samples, n_features)
+            Training instances to cluster.
+
+        Returns
+        -------
+        labels : numpy.ndarray of shape (n_samples,)
+            Cluster labels for each sample in X.
         """
         return self.fit(X).labels
