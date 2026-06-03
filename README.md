@@ -194,6 +194,27 @@ pip install -r requirements.txt
 
 ## Quick Start
 
+### Synthetic Dataset Generation
+
+Generate reproducible synthetic datasets for benchmarking clustering algorithms:
+
+```bash
+# Basic: 10K samples, 32 features, CSV format
+python src/utils/data_generator.py --samples 10000 --features 32
+
+# Advanced: Custom distribution, seed, and format
+python src/utils/data_generator.py \
+  --samples 5000 \
+  --features 64 \
+  --distribution uniform \
+  --seed 12345 \
+  --format npy
+```
+
+Generated datasets are saved to the `data/` directory with deterministic, bit-identical output when using the same seed. This ensures reproducible benchmarking across runs.
+
+For detailed usage, examples, and reproducibility guidance, see [docs/data_generator_how_to.md](docs/data_generator_how_to.md).
+
 ### Run CPU Benchmark
 
 ```bash
