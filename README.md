@@ -190,6 +190,8 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+If you are setting up the project as a contributor, see the step-by-step [Developer Setup Guide](docs/setup_guide.md) for environment setup, validation commands, and troubleshooting notes.
+
 ---
 
 ## Quick Start
@@ -208,7 +210,7 @@ python src/utils/data_generator.py \
   --features 64 \
   --distribution uniform \
   --seed 12345 \
-  --format npy
+  --output-format npy
 ```
 
 Generated datasets are saved to the `data/` directory with deterministic, bit-identical output when using the same seed. This ensures reproducible benchmarking across runs.
@@ -218,14 +220,12 @@ For detailed usage, examples, and reproducibility guidance, see [docs/data_gener
 ### Run CPU Benchmark
 
 ```bash
-python src/benchmarks/cpu_benchmark.py
+python3 -m src.benchmarks.cpu_benchmarks
 ```
 
 ### Run GPU Benchmark
 
-```bash
-python src/benchmarks/gpu_benchmark.py
-```
+GPU benchmark support is planned, but there is no dedicated GPU benchmark script in this checkout yet.
 
 ### Launch Dashboard
 
