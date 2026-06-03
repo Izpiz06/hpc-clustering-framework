@@ -63,8 +63,8 @@ After activation, your prompt should show the virtual environment name, usually 
 Upgrade packaging tools first, then install the pinned project dependencies:
 
 ```bash
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
 ```
 
 For Windows, the same commands work after activating the virtual environment:
@@ -79,7 +79,7 @@ python -m pip install -r requirements.txt
 Run a quick import check from the repository root:
 
 ```bash
-python -c "from src.cpu_backend import KMeansCPU; print(KMeansCPU)"
+python3 -c "from src.cpu_backend import KMeansCPU; print(KMeansCPU)"
 ```
 
 If this command fails, confirm that you are in the repository root and that the virtual environment is active.
@@ -89,7 +89,7 @@ If this command fails, confirm that you are in the repository root and that the 
 The data generator creates reproducible CSV or NPY files for clustering benchmarks.
 
 ```bash
-python src/utils/data_generator.py --samples 1000 --features 16 --seed 42
+python3 -m src.utils.data_generator --samples 1000 --features 16 --seed 42
 ```
 
 Generated files are written to the `data/` directory by default. For more examples, see `docs/data_generator_how_to.md`.
@@ -99,7 +99,7 @@ Generated files are written to the `data/` directory by default. For more exampl
 The current benchmark script is:
 
 ```bash
-python src/benchmarks/cpu_benchmarks.py
+python3 -m src.benchmarks.cpu_benchmarks
 ```
 
 This generates a synthetic dataset, trains the NumPy CPU K-Means backend, and prints the elapsed runtime. Use this command before and after performance-related changes to compare behavior.
@@ -109,18 +109,20 @@ This generates a synthetic dataset, trains the NumPy CPU K-Means backend, and pr
 Run the full test suite:
 
 ```bash
-pytest tests/
+python3 -m pytest tests/
 ```
 
 Run a focused test file while working on a specific area:
 
 ```bash
-pytest tests/test_kmeans_cpu.py -v
-pytest tests/test_data_generator.py -v
-pytest tests/regression_tests.py -v
+python3 -m pytest tests/test_kmeans_cpu.py -v
+python3 -m pytest tests/test_data_generator.py -v
+python3 -m pytest tests/regression_tests.py -v
 ```
 
 Regression tests compare generated datasets against saved checksums. If a regression test fails after an intentional algorithm change, explain the reason clearly in your pull request.
+
+If these checksum-based tests fail immediately after a fresh install, recreate the virtual environment and confirm you are using the pinned versions from `requirements.txt`. In this repository, the regression baselines are sensitive to NumPy and scikit-learn version drift.
 
 ## 8. Optional GPU Contributor Setup
 
@@ -164,8 +166,8 @@ The output should end with `hpc-clustering-framework`.
 Activate the virtual environment and install dependencies again:
 
 ```bash
-python -m pip install -r requirements.txt
-python -m pytest tests/
+python3 -m pip install -r requirements.txt
+python3 -m pytest tests/
 ```
 
 ### Dependency Installation Fails
@@ -173,7 +175,7 @@ python -m pytest tests/
 Check your Python version:
 
 ```bash
-python --version
+python3 --version
 ```
 
 Use Python 3.8 or newer, then recreate the virtual environment if needed:
@@ -181,9 +183,9 @@ Use Python 3.8 or newer, then recreate the virtual environment if needed:
 ```bash
 deactivate
 rm -rf venv
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
-python -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 On Windows Command Prompt, remove the virtual environment with:
@@ -204,8 +206,8 @@ Confirm that the installed CuPy package matches your CUDA version. If you are no
 From the repository root, run:
 
 ```bash
-python src/benchmarks/cpu_benchmarks.py
-pytest tests/
+python3 -m src.benchmarks.cpu_benchmarks
+python3 -m pytest tests/
 ```
 
 Then include the commands you ran and their results in your pull request description.
